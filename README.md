@@ -57,7 +57,7 @@ I's an xmpp client which writes the ACDC reports to the database
 #### Dependencies #### 
 
 ```sh
-$ sudo apt-get install python3 python3-dateutil
+$ sudo apt-get install python3 python3-pip python3-dateutil
 $ sudo pip3 install psycopg2 
 $ sudo pip3 install sleekxmpp
 ```
@@ -94,14 +94,14 @@ Now messages should go to the database.
 
 ### Website ###
 
-We used [nginx](http://nginx.org) web server, uwsgi and flask python framework
+We used [nginx](http://nginx.org), [uWSGI](https://uwsgi-docs.readthedocs.org/en/latest/) and [flask](http://flask.pocoo.org/) python framework
 
 
 #### Installation ####
 
 ```sh
-$ sudo pip3 install flask psycopg2
-$ sudo apt-get install nginx uwsgi
+$ sudo pip3 install Flask psycopg2
+$ sudo apt-get install nginx uwsgi uwsgi-plugin-python3
 ```
 
 #### Configuration ####
