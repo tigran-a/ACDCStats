@@ -1,0 +1,80 @@
+
+<div class="chart" id="chartexp2">
+  <svg></svg>
+</div>
+<script>
+
+d3.json("{{url_for('ddata.exp2_count', _external=True) }}", function(json) {
+  var data= d3.entries(json['res'] )
+  //for (i=0; i<data.length; i++) {
+	var dres = {};
+/* Backward dependency 
+	  for (var elem in data){ 
+	      var piece = data[elem]['value'];
+	       if (!dres.hasOwnProperty(piece['name'])) {dres[piece['name']] = []};
+		 for (var categ in piece['data']){
+		      if (categ != "_sum") {
+			  var tmp = {}
+			  tmp[categ] = piece['data'][categ]
+			  dres[piece['name']].push(d3.entries(tmp));
+		      }
+		  }
+	 
+	  };
+*/
+	var  all_exp = []
+	  for (var elem in data){ 
+	      var piece = data[elem]['value'];
+		 for (var categ in piece['data']){
+		      if (categ != "_sum") {
+			  if (all_exp.indexOf(piece['name']) < 0) { console.log(piece['name']); all_exp.push(piece['name'])};
+			  if (!dres.hasOwnProperty(categ)) {dres[categ] = {}};
+			  var tmp = {}
+			  tmp[piece['name']] = piece['data'][categ]
+			  dres[categ][piece['name']] =  d3.entries(tmp);
+		      }
+		  }
+	 
+	  };
+console.log(dres)
+for (var k in dres) {
+   for (var i in all_exp) {
+      if (!dres[k].hasOwnProperty(all_exp[i])){
+			  var tmp = {}
+			  tmp[all_exp[i]] = 0
+         dres[k][all_exp[i]] = d3.entries(tmp);
+      }
+   }
+}
+dres = d3.entries(dres)
+dres = dres.map(function(el){ return {key: el['key'], values: d3.values(el['value'])}})
+
+nv.addGraph(function() {
+    var chart = nv.models.multiBarChart()
+	    .x(function(d) {  return (d[0].key)})
+	    .y(function(d) {  return (d[0].value) })
+      .transitionDuration(350)
+      .reduceXTicks(true)   //If 'false', every single x-axis tick label will be rendered.
+      .rotateLabels(0)      //Angle to rotate x-axis labels.
+      .showControls(true)   //Allow user to switch between 'Grouped' and 'Stacked' mode.
+      .groupSpacing(0.1)    //Distance between each group of bars.
+       .stacked(true)
+	    .height(400)
+    ;
+
+	  chart.yAxis
+		.axisLabel('Number of reports')
+		.axisLabelDistance(25);
+
+    d3.select('#chartexp2 svg')
+        .datum(dres)
+        .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+});
+
+});
+
+</script>

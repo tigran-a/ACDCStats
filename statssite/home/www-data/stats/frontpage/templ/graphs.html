@@ -1,0 +1,259 @@
+{% extends "main.html" %}
+{% block body %}
+
+<h1>Reports count per category</h1>
+
+<div> 
+    <span>Filter data by experiment (enter the [beginning of the] experiment name): </span> <input id="expname" value="{{exp or ''}}"/> <button onclick='window.location.href="{{url_for("frontpage.g1", _external=True)}}"+"/"+document.getElementById("expname").value+"{{parm|safe}}"'>Go!</button>
+</div>
+
+<div class="chart" id="chartcateg">
+  <svg></svg>
+</div>
+
+<script>
+d3.json("{{url_for('ddata.categ_count', exp=exp, _external=True)+parm|safe }}", function(json) {
+  var data=[{'key': "Experiments", 'values': d3.entries(json['res'])}]
+	nv.addGraph(function() {
+	  var chart = nv.models.discreteBarChart()
+	    .x(function(d) { return d.key })
+	    .y(function(d) { return (d.value) })
+//	    .staggerLabels(true)
+	    .tooltips(true)
+	    .showValues(true)
+	    .height(400);
+
+	  chart.valueFormat(d3.format('d'));
+	  chart.yAxis
+		.tickFormat(d3.format(',f'))
+		.axisLabel('Number of reports')
+		.axisLabelDistance(25);
+	  //chart.xAxis.axisLabel('Experiment')
+	  chart.xAxis
+                .rotateLabels(-45)
+            ;
+
+	  d3.select('#chartcateg svg')
+	    .datum(data)
+	    .transition().duration(500)
+	    .call(chart)
+	    ;
+
+	  nv.utils.windowResize(chart.update);
+
+	  return chart;
+	});
+});
+
+</script>
+<p> This graph shows how many reports we've collected for the last 7 days concerning each category <p>
+<hr/>
+
+
+<div class="chart" id="chartexp2">
+  <svg></svg>
+</div>
+<script>
+
+d3.json("{{url_for('ddata.exp2_count', exp=exp, _external=True) +parm|safe}}", function(json) {
+  var data= json['res'] 
+	var dres = {};
+        var uniform = {'WEBSITES' : 'WEBSITES', 'Websites': 'WEBSITES', 'WEBSITE': 'WEBSITES',
+        'FASTFLUX': 'FASTFLUX', 'FastFlux': 'FASTFLUX'} // 'corrector' for names
+	  for (var elem in data){ 
+              var nm = data[elem]['name'];
+              var k = nm; // new name w.r.t. uniform array
+              if (nm in uniform){ 
+                  k = uniform[nm]
+              } 
+              if (!(k in dres)){ 
+                  dres[k]=0
+              } 
+              
+              dres[k] += data[elem]['data']["_sum"];
+	  };
+
+dres = [{'key': 'Experiments', 'values': d3.entries(dres)}]
+
+	nv.addGraph(function() {
+	  var chart = nv.models.discreteBarChart()
+	    .x(function(d) { return d.key })
+	    .y(function(d) { return (d.value) })
+	    .tooltips(true)
+	    .showValues(true)
+	    .height(400);
+
+	  chart.valueFormat(d3.format('d'));
+	  chart.yAxis
+		.tickFormat(d3.format(',f'))
+		.axisLabel('Number of reports')
+		.axisLabelDistance(25);
+	  //chart.xAxis.axisLabel('Experiment')
+	  chart.xAxis
+                .rotateLabels(-45)
+            ;
+
+	  d3.select('#chartexp2 svg')
+	    .datum(dres)
+	    .transition().duration(500)
+	    .call(chart)
+	    ;
+
+	  nv.utils.windowResize(chart.update);
+
+	  return chart;
+	});
+
+});
+
+</script>
+<p> This graph shows how many reports were submitted per experiment for the last 7 days 
+<p>
+<hr/>
+
+
+<div class="chart" id="charttool2">
+  <svg></svg>
+</div>
+<script>
+
+d3.json("{{url_for('ddata.tool2_count', exp=exp, _external=True) +parm|safe}}", function(json) {
+  var data= json['res'] 
+	var dres = {};
+	  for (var elem in data){ 
+          dres[data[elem]['name']] = data[elem]['data']["_sum"]
+	  };
+
+dres = [{'key': 'Experiments', 'values': d3.entries(dres)}]
+
+	nv.addGraph(function() {
+	  var chart = nv.models.discreteBarChart()
+	    .x(function(d) { return d.key })
+	    .y(function(d) { return (d.value) })
+	    .tooltips(true)
+	    .showValues(true)
+	    .height(400);
+
+	  chart.valueFormat(d3.format('d'));
+	  chart.yAxis
+		.tickFormat(d3.format(',f'))
+		.axisLabel('Number of reports')
+		.axisLabelDistance(25);
+	  //chart.xAxis.axisLabel('Experiment')
+	  chart.xAxis
+                .rotateLabels(-45)
+            ;
+
+	  d3.select('#charttool2 svg')
+	    .datum(dres)
+	    .transition().duration(500)
+	    .call(chart)
+	    ;
+
+	  nv.utils.windowResize(chart.update);
+
+	  return chart;
+	});
+
+});
+
+</script>
+<p> This graph shows how many reports were submitted per tool for the last 7 days 
+<hr/>
+
+<div class="chart" id="chartpartner2">
+  <svg></svg>
+</div>
+<script>
+
+d3.json("{{url_for('ddata.partner2_count', exp=exp, _external=True) +parm|safe}}", function(json) {
+  var data= json['res'] 
+	var dres = {};
+	  for (var elem in data){ 
+          dres[data[elem]['name']] = data[elem]['data']["_sum"]
+	  };
+
+dres = [{'key': 'Experiments', 'values': d3.entries(dres)}]
+
+	nv.addGraph(function() {
+	  var chart = nv.models.discreteBarChart()
+	    .x(function(d) { return d.key })
+	    .y(function(d) { return (d.value) })
+	    .tooltips(true)
+	    .showValues(true)
+	    .height(400);
+
+	  chart.valueFormat(d3.format('d'));
+	  chart.yAxis
+		.tickFormat(d3.format(',f'))
+		.axisLabel('Number of reports')
+		.axisLabelDistance(25);
+	  //chart.xAxis.axisLabel('Experiment')
+	  chart.xAxis
+                .rotateLabels(-45)
+            ;
+
+	  d3.select('#chartpartner2 svg')
+	    .datum(dres)
+	    .transition().duration(500)
+	    .call(chart)
+	    ;
+
+	  nv.utils.windowResize(chart.update);
+
+	  return chart;
+	});
+
+});
+
+</script>
+<p> This graph shows how many reports were submitted per partner for the last 7 days 
+<hr/>
+
+<div class="chart" id="chartconfidence2">
+  <svg></svg>
+</div>
+<script>
+
+d3.json("{{url_for('ddata.confidence2_count', exp=exp, _external=True) +parm|safe}}", function(json) {
+  var data= json['res'] 
+	var dres = {};
+	  for (var elem in data){ 
+          dres[elem] = data[elem]["_sum"]
+	  };
+
+dres = [{'key': 'Experiments', 'values': d3.entries(dres)}]
+
+	nv.addGraph(function() {
+	  var chart = nv.models.discreteBarChart()
+	    .x(function(d) { return parseFloat(d.key) })
+	    .y(function(d) { return (d.value) })
+	    .staggerLabels(true)
+	    .tooltips(true)
+	    .showValues(true)
+	    .height(400);
+
+	  chart.valueFormat(d3.format('d'));
+	  chart.yAxis
+		.tickFormat(d3.format(',f'))
+		.axisLabel('Number of reports')
+		.axisLabelDistance(25);
+	  //chart.xAxis.axisLabel('Experiment')
+
+	  d3.select('#chartconfidence2 svg')
+	    .datum(dres)
+	    .transition().duration(500)
+	    .call(chart)
+	    ;
+
+	  nv.utils.windowResize(chart.update);
+
+	  return chart;
+	});
+
+});
+
+</script>
+<p> This graph shows how many reports were submitted per confidence level for the last 7 days 
+<hr/>
+{% endblock %}

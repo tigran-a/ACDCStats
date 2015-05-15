@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>ACDC Experiments Stats</title>
+<link href="/static/university.css" rel="stylesheet" type="text/css" />
+<link href="/static/nv.d3.css" rel="stylesheet" type="text/css" />
+<script src="/static/d3.v3.js"></script>
+<script src="/static/nv.d3.js" charset="utf-8"></script> 
+<style>
+.thetitle{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align:right;
+  padding-right: 2em;
+  cursor: pointer;
+}
+#sidemenu a:link, #topmenu a:link {
+    text-decoration: none;
+}
+
+#sidemenu a:hover, #topmenu a:hover {
+    text-decoration: underline;
+}
+</style>
+<style>
+
+.chart svg {
+  height: 420px;
+}
+
+</style>
+</head>
+
+<body>
+<div id="all">
+  <div id="header" onclick="window.location='http://www.uni.lu'"><h1><br/><font size="8" class="thetitle" onclick="window.location='/'; return false;">ACDC Experiments statistics</font></h1></div>
+  <div id="topmenu">
+  	<ul>
+    	<li><a href="http://acdc-project.eu" rel="external" target="_blank">ACDC Project</a></li>
+    	<li><a href="http://uni.lu" rel="external" target="_blank">University of <br/>Luxembourg</a></li>
+    	<li><a href="http://snt.uni.lu" rel="external" target="_blank">SnT centre</a></li>
+    	<li><a href="http://secan-lab.uni.lu" rel="external" target="_blank">Secan Lab</a></li>
+    	<li><a href="http://botfree.eu" rel="external" target="_blank">Botfree.eu</a></li>
+    	<li><a href="http://circl.lu" rel="external" target="_blank">CIRCL</a></li>
+    	<li><a href="http://communityportal.acdc-project.eu" rel="external" target="_blank">Community portal</a></li>
+    </ul>
+  </div>
+  <div id="main">
+  	<div id="sidemenu">
+      <ul>
+          <li><a href="/stats/overview{{parm|safe}}">Home</a></li>
+          <li><a href="/stats/graph{{parm|safe}}">General</a></li>
+          <li><a href="/stats/attack{{parm|safe}}">Attacks</a></li>
+          <li><a href="/stats/bot{{parm|safe}}">Bots</a></li>
+          <li><a href="/stats/botnet{{parm|safe}}">Botnets</a></li>
+          <li><a href="/stats/c2_server{{parm|safe}}">CnC Servers</a></li>
+          <li><a href="/stats/malicious_uri{{parm|safe}}">Malicious uris</a></li>
+          <li><a href="/stats/malware{{parm|safe}}">Malware</a></li>
+          <li><a href="/stats/spam_campaign{{parm|safe}}">Spam campaigns</a></li>
+          <li><a href="/stats/vulnerable_uri{{parm|safe}}">Vulnerable URIs</a></li>
+          <li><a href="/stats/fast_flux{{parm|safe}}">Fast Flux</a></li>
+        <li><hr/></li>
+<!--    	<li>Websites</li>
+    	<li>DDoS</li>
+    	<li>SPAM</li>
+    	<li>FastFlux</li>
+    	<li>Mobile</li>                                        
+-->
+    </ul>
+    </div>
+    <div id="content">
+
+{% block body %}{% endblock %}
+    </div>
+  </div>
+  <div id="footer">© SnT - Interdisciplinary Centre for Security, Reliability and Trust, Université du Luxembourg 2014. All rights reserved</div>
+</div>
+</body>
+</html>

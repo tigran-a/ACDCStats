@@ -1,0 +1,141 @@
+body {
+
+	background-color: #bbbbbb;
+	font-family: arial,helvetica;
+	font-size: 12px;
+	font-weight: normal;
+	margin: 0;
+	padding: 0;
+}
+
+
+div#all {
+	background-color: #FFFFFF;
+	height: 100%;
+	margin: 0 auto;
+	width: 980px;
+	-moz-box-shadow: 0 10px 20px 0 #999999;
+	-webkit-box-shadow: 0 10px 20px 0 #999999;
+	box-shadow: 0 10px 20px 0 #999999;	
+}
+
+
+div#header {
+	background-image: url("Header_980x115.png");
+	background-repeat: no-repeat;
+	height: 120px;
+	padding-left: 0;
+	padding-top: 0;
+}
+
+div#topmenu {
+	-moz-box-shadow: 0 10px 15px -6px #DDDDDD;
+	-webkit-box-shadow: 0 10px 15px -6px #DDDDDD;
+	box-shadow: 0 10px 15px -6px #DDDDDD;
+	margin: 0px 0px 30px 0px;
+	padding: 0;
+	width: 980px;
+	height:50px;
+}
+
+
+div#topmenu ul {
+	clear: both;
+	float: left;
+	list-style: none outside none;
+	margin: 10px 0px 20px 30px;
+	padding: 0;
+}
+
+
+div#topmenu ul li {
+	font-weight: bold;
+	float: left;
+	font-size: 15px;
+	margin: 0;
+	padding: 0px 20px;
+	white-space: nowrap;
+	width:90px;
+	color: #00B8EF;
+}
+
+div#topmenu ul li a{
+	color: #00B8EF;
+}
+
+
+
+div#main {
+	margin: 0 10px;
+	padding: 0;
+	width: 960px;
+}
+
+div#sidemenu {
+	float: left;
+	margin: 0px 0 30px;
+	padding: 0;
+	width: 170px;
+}
+
+div#sidemenu ul {
+	list-style-type: none;
+	margin: 0px 0px 0px 0px ;
+	padding:0px;
+	background-color: #F4F2F3;
+}
+
+
+div#sidemenu ul li {
+	background-image: none;
+	border-bottom: 2px solid #FFFFFF;
+	list-style-image: none;
+	list-style-type: none;
+	margin: 0;
+	padding: 10px;
+}
+
+div#content {
+	background-color: #FFFFFF;
+	margin: 0px 0px 0px 0px;
+	padding: 0px 10px 30px 20px;
+	width: 760px;
+	float: left;
+	font-family: arial, helvetica;
+}
+
+
+div#footer {
+    background-color: #E8EAEC;
+    clear: both;
+    font-size: 0.85em;
+    margin: 10px 0 0;
+    padding: 10px;
+    text-align: left;
+}
+
+p {
+	margin: 0.4em 0 1.5em;
+	line-height: 15px;
+}
+
+a {
+	color: #000000;
+	text-decoration: underline;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+h1 {
+	color: #00B8EF;
+	font-size: 1.6em;
+	font-weight: normal;
+	margin: 0px 0px 0px 0px ;
+	padding-bottom: 25px;
+}
+
+h2 {
+	font-size: 12pt;
+}

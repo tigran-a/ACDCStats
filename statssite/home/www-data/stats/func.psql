@@ -1,0 +1,20 @@
+CREATE OR REPLACE FUNCTION test()                                                                                                                                                                                                        
+RETURNS VOID
+AS $$
+DECLARE
+    my_row    RECORD;
+BEGIN       
+    FOR my_row IN 
+        SELECT table_name
+        FROM   information_schema.tables
+        WHERE  table_schema = 'public' and not (table_name in ('tools', 'source_keys', 'experiments','partners','alternate_format_types','report_subcategories','modes'))
+    LOOP
+        execute 'update '|| my_row.table_name || ' set tool = 32, partner = 1 where tool = 6 and partner = 6';RAISE NOTICE 'table name is %', my_row.table_name;                                                                                   
+    END LOOP;
+END;
+$$ LANGUAGE plpgsql;
+
+
+
+
+SELECT test(); 

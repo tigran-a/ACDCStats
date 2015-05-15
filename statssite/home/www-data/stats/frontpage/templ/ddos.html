@@ -1,0 +1,126 @@
+{% extends "main.html" %}
+{% block body %}
+
+<h1>Reports count per category</h1>
+
+
+<div class="chart" id="chartcateg">
+  <svg></svg>
+</div>
+
+<script>
+
+d3.json("{{url_for('ddata.tbl_subcateg_count', tbl='attack', exp='ddos',  _external=True) }}", function(json) {
+  var data=[{'key': "Reports", 'values': d3.entries(json['res'])}]
+	nv.addGraph(function() {
+	  var chart = nv.models.discreteBarChart()
+	    .x(function(d) { return d.key })
+	    .y(function(d) { return (d.value) })
+	    .staggerLabels(true)
+	    .tooltips(true)
+	    .showValues(true)
+	    .height(400);
+
+	  chart.valueFormat(d3.format('d'));
+	  chart.yAxis
+		.tickFormat(d3.format(',f'))
+		.axisLabel('Number of reports')
+		.axisLabelDistance(25);
+	  //chart.xAxis.axisLabel('Experiment')
+
+	  d3.select('#chartcateg svg')
+	    .datum(data)
+	    .transition().duration(500)
+	    .call(chart)
+	    ;
+
+	  nv.utils.windowResize(chart.update);
+
+	  return chart;
+	});
+});
+
+</script>
+<p> This graph shows how many reports of each subcategory in eu.acdc.attack category was submitted for the last 7 days <p>
+<hr/>
+
+
+<div class="chart" id="charttopasn">
+  <svg></svg>
+</div>
+
+<script>
+
+d3.json("{{url_for('ddata.top', categ='attack', fld = 'meta_asn', _external=True) }}", function(json) {
+    var data=[{'key': "Reports", 'values': d3.entries(json['res']).sort(function(a,b){return d3.descending(a.value, b.value)})}]
+	nv.addGraph(function() {
+	  var chart = nv.models.discreteBarChart()
+	    .x(function(d) { return d.key=="--none--"?d.key:("AS"+d.key) })
+	    .y(function(d) { return (d.value) })
+	    .tooltips(true)
+	    .height(400);
+
+	  chart.valueFormat(d3.format('d'));
+	  chart.yAxis
+		.tickFormat(d3.format(',f'))
+		.axisLabel('Number of reports')
+		.axisLabelDistance(25);
+	  chart.xAxis.rotateLabels(-45);
+
+	  d3.select('#charttopasn svg')
+	    .datum(data)
+	    .transition().duration(500)
+	    .call(chart)
+	    ;
+
+	  nv.utils.windowResize(chart.update);
+
+	  return chart;
+	});
+});
+
+</script>
+<p> This graph shows the top ASNs by the number of reports submitted for the last 7 days <p>
+<hr/>
+
+
+<div class="chart" id="charttopcountry">
+  <svg></svg>
+</div>
+
+<script>
+
+d3.json("{{url_for('ddata.top', categ='attack', fld='meta_country_code',  _external=True) }}", function(json) {
+    var data=[{'key': "Reports", 'values': d3.entries(json['res']).sort(function(a,b){return d3.descending(a.value, b.value)})}]
+	nv.addGraph(function() {
+	  var chart = nv.models.discreteBarChart()
+	    .x(function(d) { return d.key })
+	    .y(function(d) { return (d.value) })
+	    .staggerLabels(true)
+	    .tooltips(true)
+	    .height(400);
+
+	  chart.valueFormat(d3.format('d'));
+	  chart.yAxis
+		.tickFormat(d3.format(',f'))
+		.axisLabel('Number of reports')
+		.axisLabelDistance(25);
+	  //chart.xAxis.axisLabel('Experiment')
+
+	  d3.select('#charttopcountry svg')
+	    .datum(data)
+	    .transition().duration(500)
+	    .call(chart)
+	    ;
+
+	  nv.utils.windowResize(chart.update);
+
+	  return chart;
+	});
+});
+
+</script>
+<p> This graph shows the top countries by the number of reports submitted for the last 7 days <p>
+<hr/>
+
+{% endblock %}
