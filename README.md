@@ -1,5 +1,5 @@
 # ACDCStats
-Retrieve, store, compute and display via web the statistics on security reports from [ACDC](http://acdc-project.eu) CCH (see the [community portal](http://communityportal.acdc-project.eu)). This code is currently running at [https://acdc.uni.lu].
+Retrieve, store, compute and display via web the statistics on security reports from [ACDC](http://acdc-project.eu) CCH (see the [community portal](http://communityportal.acdc-project.eu)). This code is currently running at https://acdc.uni.lu.
 
 Two main components are:
 
