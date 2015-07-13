@@ -38,6 +38,7 @@ Exit `Ctrl+D`, and return from postgres user `Ctrl+D`
 
 #### Allowing to connect ####
 
+(change 9.4 to your version of postgresql)
 ```sh
 $ sudo echo "host   acdcexp acdcuser        127.0.0.1/24    md5" >> /etc/postgresql/9.4/main/pg_hba.conf
 ```
